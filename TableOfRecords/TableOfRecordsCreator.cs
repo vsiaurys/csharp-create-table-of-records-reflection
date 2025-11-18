@@ -39,6 +39,22 @@ public static class TableOfRecordsCreator
             throw new ArgumentException("The collection is empty.", nameof(collection));
         }
 
+        var props = typeof(T).GetProperties(BindingFlags.Public | BindingFlags.Instance);
+        var headers = props.Select(p => p.Name).ToArray();
+        var widths = props.Select(p => p.Name.Length).ToArray();
+
+        foreach (var item in collection)
+        {
+            for (int i = 0; i < props.Length; i++)
+            {
+                var value = props[i].GetValue(item)?.ToString() ?? string.Empty;
+                if (value.Length > widths[i])
+                {
+                    widths[i] = value.Length;
+                }
+            }
+        }
+
         throw new NotImplementedException();
     }
 }
