@@ -55,6 +55,8 @@ public static class TableOfRecordsCreator
             }
         }
 
+        string divider = "+" + string.Join("+", widths.Select(w => new string('-', w + 2))) + "+";
+
         throw new NotImplementedException();
     }
 }
