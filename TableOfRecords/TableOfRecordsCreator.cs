@@ -24,6 +24,21 @@ public static class TableOfRecordsCreator
     /// <exception cref="ArgumentException">Throw if <paramref name="collection"/> is empty.</exception>
     public static void WriteTable<T>(ICollection<T>? collection, TextWriter? writer)
     {
+        if (collection == null)
+        {
+            throw new ArgumentNullException(nameof(collection), "The collection is null.");
+        }
+
+        if (writer == null)
+        {
+            throw new ArgumentNullException(nameof(writer), "The writer is null.");
+        }
+
+        if (collection.Count == 0)
+        {
+            throw new ArgumentException("The collection is empty.", nameof(collection));
+        }
+
         throw new NotImplementedException();
     }
 }
