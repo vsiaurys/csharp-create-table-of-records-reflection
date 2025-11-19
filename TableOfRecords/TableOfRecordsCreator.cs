@@ -57,6 +57,38 @@ public static class TableOfRecordsCreator
 
         string divider = "+" + string.Join("+", widths.Select(w => new string('-', w + 2))) + "+";
 
+        writer.WriteLine(divider);
+        writer.WriteLine("| " + string.Join(" | ", headers.Select((h, i) => h.PadRight(widths[i]))) + " |");
+        writer.WriteLine(divider);
+
+        foreach (var item in collection)
+        {
+            writer.Write("| ");
+            for (int i = 0; i < props.Length; i++)
+            {
+                var value = props[i].GetValue(item)?.ToString() ?? string.Empty;
+                bool isNumber = IsNumericType(props[i].PropertyType);
+                string formatted = isNumber ? value.PadLeft(widths[i]) : value.PadRight(widths[i]);
+                writer.Write(formatted);
+                if (i < props.Length - 1)
+                {
+                    writer.Write(" | ");
+                }
+                else
+                {
+                    writer.Write(" |");
+                }
+            }
+
+            writer.WriteLine();
+            writer.WriteLine(divider);
+        }
+
+        throw new NotImplementedException();
+    }
+
+    private static bool IsNumericType(Type type)
+    {
         throw new NotImplementedException();
     }
 }
